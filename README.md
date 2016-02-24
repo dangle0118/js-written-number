@@ -40,6 +40,7 @@ Currently supported languages are:
 - Portuguese `lang = "pt"`
 - Spanish `lang = "es"`
 - French `lang = "fr"`
+- Vietnamese `lang = "vn"`
 
 ### Spanish Example
 ```javascript
@@ -63,6 +64,11 @@ writtenNumber(1234, { lang: 'pt' }); // => 'mil duzentos e trinta e quatro'
 ```javascript
 var writtenNumber = require('written-number');
 writtenNumber(1234, { lang: 'fr' }); // => 'mille deux cent trente-quatre'
+
+### Vietnamese Example
+```javascript
+var writtenNumber = require('written-number');
+writtenNumber(1234, { lang: 'vn' }); // => 'một nghìn hai trăm ba mươi bốn'
 ```
 
 ## Options
@@ -85,6 +91,10 @@ meaning of the words `billion`, `trillion` and so on.
 ##### baseSeparator:
 'String' that separates the base cardinal numbers.
 Example: 29 -> twenty`-`eight. Spanish uses the conector " y ".
+
+##### trailingSeparator:
+'String' that separates the base cardinal numbers which have some trailing 0s before it.
+Example: 1003 -> Một nghìn`lẻ`ba.
 
 ##### unitSeparator:
 'String' that separates the units from the last base cardinal numbers.

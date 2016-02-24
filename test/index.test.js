@@ -280,15 +280,17 @@ describe('written-number', function() {
       writtenNumber(110).should.equal('một trăm mười');
       writtenNumber(200).should.equal('hai trăm');
       writtenNumber(242).should.equal('hai trăm bốn mươi hai');
+      writtenNumber(202).should.equal('hai trăm lẻ hai');
     });
 
     it('correctly converts numbers > 1000', function() {
+      writtenNumber(1009).should.equal('một nghìn lẻ chín');
       writtenNumber(1234).should.equal('một nghìn hai trăm ba mươi bốn');
       writtenNumber(4000).should.equal('bốn nghìn');
       writtenNumber(4323).should.equal('bốn nghìn ba trăm hai mươi ba');
       writtenNumber(1000000).should.equal('một triệu');
       writtenNumber(2000000).should.equal('hai triệu');
-      writtenNumber(2000001).should.equal('hai triệu một');
+      writtenNumber(2000001).should.equal('hai triệu lẻ một');
       writtenNumber(4323000).should.equal('bốn triệu ba trăm hai mươi ba nghìn');
       writtenNumber(4323055).should.equal('bốn triệu ba trăm hai mươi ba nghìn năm mươi lăm');
       writtenNumber(1570025).should.equal('một triệu năm trăm bảy mươi nghìn hai mươi lăm');

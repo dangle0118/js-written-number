@@ -2,6 +2,7 @@
   "useLongScale": false,
   "baseSeparator": " ",
   "unitSeparator": "",
+  "trailingSeparator": "lẻ ",
   "base": {
     "0": "không",
     "1": "một",
