@@ -3,6 +3,7 @@ var should = require('should');
 var writtenNumber = require('..');
 
 describe('written-number', function() {
+
   describe('writtenNumber(n, { lang: \'en\', ... })', function() {
     before(function() {
       writtenNumber.defaults.lang = 'en';
@@ -284,27 +285,27 @@ describe('written-number', function() {
     });
 
     it('correctly converts numbers > 1000', function() {
-      writtenNumber(1009).should.equal('một nghìn lẻ chín');
-      writtenNumber(1234).should.equal('một nghìn hai trăm ba mươi bốn');
+      writtenNumber(1009).should.equal('một nghìn, lẻ chín');
+      writtenNumber(1234).should.equal('một nghìn, hai trăm ba mươi bốn');
       writtenNumber(4000).should.equal('bốn nghìn');
-      writtenNumber(4323).should.equal('bốn nghìn ba trăm hai mươi ba');
+      writtenNumber(4323).should.equal('bốn nghìn, ba trăm hai mươi ba');
       writtenNumber(509000).should.equal('năm trăm lẻ chín nghìn');
       writtenNumber(1000000).should.equal('một triệu');
       writtenNumber(2000000).should.equal('hai triệu');
-      writtenNumber(2000001).should.equal('hai triệu lẻ một');
-      writtenNumber(4323000).should.equal('bốn triệu ba trăm hai mươi ba nghìn');
-      writtenNumber(4323055).should.equal('bốn triệu ba trăm hai mươi ba nghìn năm mươi lăm');
-      writtenNumber(1570025).should.equal('một triệu năm trăm bảy mươi nghìn hai mươi lăm');
+      writtenNumber(2000001).should.equal('hai triệu, lẻ một');
+      writtenNumber(4323000).should.equal('bốn triệu, ba trăm hai mươi ba nghìn');
+      writtenNumber(4323055).should.equal('bốn triệu, ba trăm hai mươi ba nghìn, năm mươi lăm');
+      writtenNumber(1570025).should.equal('một triệu, năm trăm bảy mươi nghìn, hai mươi lăm');
     });
 
     it('correctly converts numbers > 1 000 000 000', function() {
       writtenNumber(1000000000).should.equal('một tỷ');
       writtenNumber(2580000000).should.equal(
-          'hai tỷ năm trăm tám mươi triệu'
+          'hai tỷ, năm trăm tám mươi triệu'
       );
       writtenNumber(1000000000000).should.equal('một nghìn tỷ');
       writtenNumber(3627000000000).should.equal(
-          'ba nghìn tỷ sáu trăm hai mươi bảy tỷ'
+          'ba nghìn tỷ, sáu trăm hai mươi bảy tỷ'
       );
     });
   });

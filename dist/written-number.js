@@ -431,16 +431,73 @@ module.exports={
 }
 
 },{}],5:[function(require,module,exports){
+module.exports={
+  "useLongScale": false,
+  "baseSeparator": " ",
+  "unitSeparator": "",
+  "andException": ", ",
+  "trailingSeparator": "lẻ ",
+  "scaleSeparator": ",",
+  "base": {
+    "0": "không",
+    "1": "một",
+    "2": "hai",
+    "3": "ba",
+    "4": "bốn",
+    "5": "năm",
+    "6": "sáu",
+    "7": "bảy",
+    "8": "tám",
+    "9": "chín",
+    "10": "mười",
+    "11": "mười một",
+    "12": "mười hai",
+    "13": "mười ba",
+    "14": "mười bốn",
+    "15": "mười lăm",
+    "16": "mười sáu",
+    "17": "mười bảy",
+    "18": "mười tám",
+    "19": "mười chín",
+    "20": "hai mươi",
+    "30": "ba mươi",
+    "40": "bốn mươi",
+    "50": "năm mươi",
+    "60": "sáu mươi",
+    "70": "bảy mươi",
+    "80": "tám mươi",
+    "90": "chín mươi",
+    "25": "hai mươi lăm",
+    "35": "ba mươi lăm",
+    "45": "bốn mươi lăm",
+    "55": "năm mươi lăm",
+    "65": "sáu mươi lăm",
+    "75": "bảy mươi lăm",
+    "85": "tám mươi lăm",
+    "95": "chín mươi lăm"
+  },
+  "units" : [
+    "trăm",
+    "nghìn",
+    "triệu",
+    "tỷ",
+    "nghìn tỷ",
+    "nghìn triệu triệu"
+  ],
+  "unitExceptions": []
+}
+},{}],6:[function(require,module,exports){
 'use strict';
 exports = module.exports = writtenNumber;
 var util = require('./util');
 
-var languages = ['en', 'es', 'pt', 'fr'];
+var languages = ['en', 'es', 'pt', 'fr', 'vn'];
 var i18n = {
   en: require('./i18n/en.json'),
   es: require('./i18n/es.json'),
   pt: require('./i18n/pt.json'),
   fr: require('./i18n/fr.json'),
+  vn: require('./i18n/vn.json')
 };
 exports.i18n = i18n;
 
@@ -492,20 +549,24 @@ function writtenNumber(n, options) {
   var m = n % 100;
   var ret = [];
   if(m) {
+    var trailingSeparator = (m < 10 && !!language.trailingSeparator) ? language.trailingSeparator : '';
     if(options.noAnd && !(language.andException && language.andException[10])
       ) {
-        ret.push(writtenNumber(m, options));
+          ret.push(trailingSeparator + writtenNumber(m, options));
     } else {
-      ret.push(language.unitSeparator + writtenNumber(m, options));
+        ret.push(language.unitSeparator + trailingSeparator + writtenNumber(m, options));
     }
     n -= m;
   } else ret = [];
 
+
   for(var i = 0, len = language.units.length; i < len; i++) {
     var r = Math.floor(n / scale[i]);
+    var enableScaleSeparator = false;
     if(i === 0) {
       r %= 10;
     } else if(!language.useLongScale || (i === 1 && language.useLongScale)) {
+      enableScaleSeparator = true;
       r %= 1000;
     } else r %= 1000000;
 
@@ -525,8 +586,8 @@ function writtenNumber(n, options) {
       }
       else {
         str = r > 1 && unit.plural && (!unit.avoidInNumberPlural || !m) ? unit.plural : unit.singular;
-      }
-      if(unit.avoidPrefixException && unit.avoidPrefixException.indexOf(r) > -1) {
+      } 
+     if(unit.avoidPrefixException && unit.avoidPrefixException.indexOf(r) > -1) {
         ret.push(str);
       }
       else {
@@ -537,11 +598,20 @@ function writtenNumber(n, options) {
                    unit.andException) &&
                  true,
         }, options));
-        ret.push(number + ' ' + str);
+        var result = number + ' ' + str;
+        if (enableScaleSeparator && language.scaleSeparator) {
+          result += language.scaleSeparator;
+        }
+        ret.push(result);
+        
       }
     }
-
   }
+
+  if (!!ret[0] && !!language.scaleSeparator && ret[0].substr(ret[0].length - language.scaleSeparator.length) === language.scaleSeparator) {
+    ret[0] = ret[0].slice(0, -language.scaleSeparator.length);
+  }  
+
   return ret.reverse().join(' ');
 }
 
@@ -554,7 +624,7 @@ function handleSmallerThan100(n, language, unit, baseCardinals, options) {
   return baseCardinals[dec];
 }
 
-},{"./i18n/en.json":1,"./i18n/es.json":2,"./i18n/fr.json":3,"./i18n/pt.json":4,"./util":6}],6:[function(require,module,exports){
+},{"./i18n/en.json":1,"./i18n/es.json":2,"./i18n/fr.json":3,"./i18n/pt.json":4,"./i18n/vn.json":5,"./util":7}],7:[function(require,module,exports){
 'use strict';
 /**
  * Merges a set of default keys with a target object
@@ -577,5 +647,5 @@ function defaults(target, defs) {
 }
 exports.defaults = defaults;
 
-},{}]},{},[5])(5)
+},{}]},{},[6])(6)
 });
