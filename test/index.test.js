@@ -288,6 +288,7 @@ describe('written-number', function() {
       writtenNumber(1234).should.equal('một nghìn hai trăm ba mươi bốn');
       writtenNumber(4000).should.equal('bốn nghìn');
       writtenNumber(4323).should.equal('bốn nghìn ba trăm hai mươi ba');
+      writtenNumber(509000).should.equal('năm trăm lẻ chín nghìn');
       writtenNumber(1000000).should.equal('một triệu');
       writtenNumber(2000000).should.equal('hai triệu');
       writtenNumber(2000001).should.equal('hai triệu lẻ một');
